@@ -2,6 +2,7 @@ library(rtables)
 library(tern)
 library(dplyr)
 library(forcats)
+library(ggplot2)
 
 # import data
 adsl <- ex_adsl
@@ -174,4 +175,23 @@ basic_table() %>%
   add_colcounts() %>%
   test_proportion_diff(vars = "is_rsp") %>% #add method = "schouten"
   build_table(anl)
+
+# --- end
+
+# Graphs
+adsl %>% dplyr::filter(SEX %in% c("M","F")) %>%
+ggplot(aes(x=SEX, fill = ARM)) +
+  geom_bar(position = "dodge")
+
+ggplot(adsl,aes(x=AGE,fill = ARM)) +
+  geom_histogram( binwidth = 5, alpha = 0.7) +
+  theme_minimal()
+
+ggplot(adsl,aes(x=ARM,y=AGE)) +
+  geom_boxplot(outlier.colour = "red") +
+  labs(
+    title = "Box plot of age distribution by age",
+    x = "Treatment Arm",
+    y = "Age"
+  )
 
