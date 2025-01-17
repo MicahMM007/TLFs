@@ -195,3 +195,9 @@ ggplot(adsl,aes(x=ARM,y=AGE)) +
     y = "Age"
   )
 
+# --- end
+
+adae_ <- adae %>%
+  dplyr::filter(EOSSTT %in% c("COMPLETED","ONGOING"))
+
+
